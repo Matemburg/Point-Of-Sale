@@ -5,41 +5,11 @@
  */
 package pl.owczarczyk.pointofsale;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- *
- * @author PC-Home
- */
 public class ItemDataBaseTest {
-    
-    public ItemDataBaseTest() {
-    }
-    
-    @BeforeAll
-    public static void setUpClass() {
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
-    @BeforeEach
-    public void setUp() {
-    }
-    
-    @AfterEach
-    public void tearDown() {
-    }
-
-    /**
-     * Test of getItemByCode method, of class ItemDataBase.
-     */
+   
     @Test
     public void testGetItemByCode() {
         System.out.println("getItemByCode");
@@ -47,8 +17,27 @@ public class ItemDataBaseTest {
         ItemDataBase instance = new ItemDataBase();
         Item expResult = new Item(2.50f,"Milk");
         Item result = instance.getItemByCode(code);
-        System.out.println(result.getName());
         assertEquals(expResult.getName(), result.getName());
+    }
+    
+    @Test
+    public void testGetItemByCode2() {
+        System.out.println("getItemByCode");
+        int code = 0;
+        ItemDataBase instance = new ItemDataBase();
+        Item expResult = new Item(2.50f,"Milk");
+        Item result = instance.getItemByCode(code);
+        assertEquals(expResult.getPrice(), result.getPrice());
+    }
+    
+    @Test
+    public void testGetItemByCode3() {
+        System.out.println("getItemByCode");
+        int code = 0;
+        ItemDataBase instance = new ItemDataBase();
+        int expResult = 5;
+        int result = instance.getSize();
+        assertEquals(expResult, result);
     }
     
 }

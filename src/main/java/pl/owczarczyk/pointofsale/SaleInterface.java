@@ -1,15 +1,9 @@
-
 package pl.owczarczyk.pointofsale;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author PC-Home
- */
 public class SaleInterface extends javax.swing.JFrame {
 
-    
     ItemDataBase dataBase;
     CodeScaner scaner;
     LCDDisplay display ;
@@ -22,16 +16,27 @@ public class SaleInterface extends javax.swing.JFrame {
          display = new LCDDisplay(jLabelDisplay);
          dataBase = new ItemDataBase();
          scanedItems = new ArrayList<>();
-         printer = new Printer();
-        
+         printer = new Printer(); 
     }
     
-    public Item FindItem(int code){
+    public Item findItem(int code){
         return dataBase.getItemByCode(code);        
     }
-
-   
-   
+    
+    private void scanCode(){
+        int code;
+        code = scaner.scan();
+            try{
+                Item item = findItem(code);
+                display.showItem(item);
+                scanedItems.add(item);
+            }
+            catch(Exception e){
+            display.itemNotFoundMessage();
+            }
+    }
+  
+ 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -130,40 +135,25 @@ public class SaleInterface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonScanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonScanActionPerformed
-        int code;
-         try{
-            code = scaner.Scan();
-              try{
-                Item item = FindItem(code);
-                display.ShowItem(item);
-                scanedItems.add(item);
-            }
-            catch(Exception e){
-            display.ItemNotFoundMessage();
-            }
-         }
-      catch(Exception e){
-            display.InvalidCodeMessage();
-      }
-     
-      
+        try{
+            scanCode();
+        }
+        catch(Exception e){
+            display.invalidCodeMessage();
+        }
     }//GEN-LAST:event_jButtonScanActionPerformed
 
     private void jButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExitActionPerformed
-            float totalPrice = 0;
+        float totalPrice = 0;
+        
         for(Item i : scanedItems){
             totalPrice = totalPrice + i.getPrice();
         }
-        display.ShowTotalPrice(totalPrice);
+        display.showTotalPrice(totalPrice);
         printer.printReceipt(scanedItems, totalPrice);
     }//GEN-LAST:event_jButtonExitActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    
     public static void main(String args[]) {
-
         SaleInterface mySaleInterface = new SaleInterface();
         mySaleInterface.setVisible(true);
            

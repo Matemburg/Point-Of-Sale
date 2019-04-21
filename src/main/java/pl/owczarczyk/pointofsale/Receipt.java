@@ -1,26 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pl.owczarczyk.pointofsale;
 
-/**
- *
- * @author PC-Home
- */
 public class Receipt extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Receipt
-     */
     public Receipt(String allItems) {
         initComponents();
         jTextArea1.setText(allItems);
         jTextArea1.setEditable(false);
     }
 
-   
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -52,9 +39,6 @@ public class Receipt extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;

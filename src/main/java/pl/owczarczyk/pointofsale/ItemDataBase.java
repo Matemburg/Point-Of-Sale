@@ -1,17 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pl.owczarczyk.pointofsale;
 
 import java.util.ArrayList;
 
 
-/**
- *
- * @author PC-Home
- */
 public class ItemDataBase {
     
     ArrayList<Item> itemDataBase = new ArrayList<>();
@@ -28,6 +19,8 @@ public class ItemDataBase {
         return itemDataBase.get(code);  
     }
     
-    
+    public int getSize(){
+        return itemDataBase.size();
+    }
     
 }
