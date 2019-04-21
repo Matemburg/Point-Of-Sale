@@ -25,9 +25,13 @@ public class SaleInterface extends javax.swing.JFrame {
          printer = new Printer();
         
     }
+    
+    public Item FindItem(int code){
+        return dataBase.getItemByCode(code);        
+    }
 
    
-    @SuppressWarnings("unchecked")
+   
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -127,21 +131,21 @@ public class SaleInterface extends javax.swing.JFrame {
 
     private void jButtonScanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonScanActionPerformed
         int code;
-        try{
+         try{
             code = scaner.Scan();
-            try{
-                Item item = dataBase.getItemByCode(code);
+              try{
+                Item item = FindItem(code);
                 display.ShowItem(item);
                 scanedItems.add(item);
             }
             catch(Exception e){
             display.ItemNotFoundMessage();
-        }  
-      }
+            }
+         }
       catch(Exception e){
             display.InvalidCodeMessage();
       }
-              
+     
       
     }//GEN-LAST:event_jButtonScanActionPerformed
 
@@ -159,8 +163,7 @@ public class SaleInterface extends javax.swing.JFrame {
      */
     
     public static void main(String args[]) {
-       
-   
+
         SaleInterface mySaleInterface = new SaleInterface();
         mySaleInterface.setVisible(true);
            
