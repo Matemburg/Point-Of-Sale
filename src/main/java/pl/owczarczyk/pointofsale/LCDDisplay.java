@@ -9,6 +9,10 @@ public class LCDDisplay {
        this.Display = Display;
     }
     
+    public void noItemsScanedMessage(){
+        Display.setText("No items scaned");
+    }
+    
     public void showItem(Item item){
         String name = item.getName();
         String price = String.valueOf(item.getPrice());

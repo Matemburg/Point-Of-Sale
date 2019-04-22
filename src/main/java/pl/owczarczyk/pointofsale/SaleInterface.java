@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 public class SaleInterface extends javax.swing.JFrame {
 
-    ItemDataBase dataBase;
-    CodeScaner scaner;
-    LCDDisplay display ;
-    Printer printer;
-    ArrayList<Item> scanedItems;
+    private ItemDataBase dataBase;
+    private CodeScaner scaner;
+    private LCDDisplay display ;
+    private Printer printer;
+    private ArrayList<Item> scanedItems;
     
     public SaleInterface() {
         initComponents();
@@ -17,6 +17,10 @@ public class SaleInterface extends javax.swing.JFrame {
          dataBase = new ItemDataBase();
          scanedItems = new ArrayList<>();
          printer = new Printer(); 
+    }
+
+    public void setScanedItems(ArrayList<Item> scanedItems) {
+        this.scanedItems = scanedItems;
     }
     
     public Item findItem(int code){
@@ -34,6 +38,41 @@ public class SaleInterface extends javax.swing.JFrame {
             catch(Exception e){
             display.itemNotFoundMessage();
             }
+    }
+    
+    public String prepereReceipt(float totalPrice){
+        String allItems="Receipt \n";
+            for (Item i : scanedItems)
+            {
+                allItems = allItems + i.getName() + " " + i.getPrice()+"\n";
+            }
+            allItems  = allItems + "Total: " + String.valueOf(totalPrice);
+            return allItems;
+    }
+
+    public void printReceipt(float totalPrice){
+
+        try{
+            if(scanedItems.isEmpty()){
+                display.noItemsScanedMessage();
+            }
+            else{
+            String receipt;
+            receipt = prepereReceipt(totalPrice);
+            printer.print(receipt);
+           }
+        }
+        catch(Exception e){
+            display.noItemsScanedMessage();
+        }  
+    }
+    
+    public float addAllPrices(){
+        float totalPrice = 0;
+        for(Item i : scanedItems){
+            totalPrice = totalPrice + i.getPrice();
+        }
+        return totalPrice;
     }
   
  
@@ -144,13 +183,9 @@ public class SaleInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonScanActionPerformed
 
     private void jButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExitActionPerformed
-        float totalPrice = 0;
-        
-        for(Item i : scanedItems){
-            totalPrice = totalPrice + i.getPrice();
-        }
+        float totalPrice = addAllPrices ();
         display.showTotalPrice(totalPrice);
-        printer.printReceipt(scanedItems, totalPrice);
+        printReceipt(totalPrice);
     }//GEN-LAST:event_jButtonExitActionPerformed
 
     public static void main(String args[]) {
